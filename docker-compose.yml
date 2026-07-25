@@ -1,0 +1,16 @@
+services:
+  globaltwin-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - USGS_FEED=${USGS_FEED:-2.5_day}
+      - REFRESH_INTERVAL_SECONDS=${REFRESH_INTERVAL_SECONDS:-300}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-5}
+      - DATABASE_URL=sqlite:////data/globaltwin.db
+    volumes:
+      - globaltwin-data:/data
+
+volumes:
+  globaltwin-data:
